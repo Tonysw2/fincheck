@@ -1,0 +1,9 @@
+{
+  "eslint.workingDirectories": ["./api"],
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "cSpell.enabled": false
+}
