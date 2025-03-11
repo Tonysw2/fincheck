@@ -9,6 +9,7 @@ import { BankAccountsService } from './modules/bank-accounts/bank-accounts.servi
 import { CategoriesModule } from './modules/categories/categories.module';
 import { UsersModule } from './modules/users/users.module';
 import { DatabaseModule } from './shared/database/database.module';
+import { TransactionsModule } from './modules/transactions/transactions.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { DatabaseModule } from './shared/database/database.module';
     AuthModule,
     CategoriesModule,
     BankAccountsModule,
+    TransactionsModule,
   ],
   controllers: [],
   providers: [

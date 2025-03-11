@@ -7,6 +7,7 @@ export class ValidateBankAccountOwnershipService {
   async validate(bankAccountId: string, userId: string) {
     const isOwner = await this.bankAccountRepo.findFirst({
       where: { id: bankAccountId, userId },
+      select: { id: true },
     });
 
     if (!isOwner) {

@@ -12,4 +12,8 @@ export class CategoriesService {
       },
     });
   }
+
+  findFirst() {
+    return this.categoriesRepository.findFirst({});
+  }
 }
