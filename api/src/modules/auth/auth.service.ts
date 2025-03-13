@@ -103,10 +103,10 @@ export class AuthService {
       },
     });
 
-    const acessToken = await this.generateAccessToken(user.id);
+    const accessToken = await this.generateAccessToken(user.id);
 
     return {
-      acessToken,
+      accessToken,
     };
   }
 
