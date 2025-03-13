@@ -4,6 +4,7 @@ import { ValidateBankAccountOwnershipService } from '../bank-accounts/validate-b
 import { ValidateCategoryOwnershipService } from '../categories/validate-category-ownership.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { TransactionType } from './entities/transaction';
 import { ValidateTransactionsOwnershipService } from './validate-transaction-ownership.service';
 
 @Injectable()
@@ -15,9 +16,25 @@ export class TransactionsService {
     private readonly validateTransactionOwnershipService: ValidateTransactionsOwnershipService,
   ) {}
 
-  findAllByUserId(userId: string) {
+  findAllByUserId(
+    userId: string,
+    filter: {
+      month: number;
+      year: number;
+      bankAccountId?: string;
+      type?: TransactionType;
+    },
+  ) {
     return this.transactionsRepo.findMany({
-      where: { userId },
+      where: {
+        userId,
+        bacnkAccountId: filter.bankAccountId,
+        type: filter.type,
+        date: {
+          gte: new Date(Date.UTC(filter.year, filter.month)),
+          lt: new Date(Date.UTC(filter.year, filter.month + 1)),
+        },
+      },
     });
   }
 
