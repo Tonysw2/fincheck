@@ -4,7 +4,7 @@ import { cn } from '../../app/utils/cn'
 
 interface ButtonProps extends ComponentProps<'button'> {}
 
-export function Button({ children, className, ...props }: ButtonProps) {
+export function Button({ children, className = '', ...props }: ButtonProps) {
   return (
     <button
       {...props}

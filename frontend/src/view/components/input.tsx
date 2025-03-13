@@ -1,27 +1,47 @@
-import { ComponentProps, useId } from 'react'
+import { CrossCircledIcon } from '@radix-ui/react-icons'
+import { ComponentProps, forwardRef, useId } from 'react'
 
-interface InputProps extends ComponentProps<'input'> {}
+import { cn } from '../../app/utils/cn'
 
-export function Input({ type = 'text', placeholder, ...props }: InputProps) {
-  const inputId = useId()
-
-  return (
-    <div className="relative">
-      <input
-        {...props}
-        id={inputId}
-        type={type}
-        placeholder={placeholder}
-        className="peer h-14 w-full rounded-lg border border-gray-500 bg-white px-3 pt-4 placeholder-transparent transition-all outline-none placeholder-shown:pt-0 focus-within:border-gray-800"
-      />
-
-      <label
-        htmlFor={inputId}
-        // className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-gray-700"
-        className="pointer-events-none absolute top-2 left-3 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base"
-      >
-        {placeholder}
-      </label>
-    </div>
-  )
+interface InputProps extends ComponentProps<'input'> {
+  error?: string
 }
+
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ type = 'text', placeholder, error, className = '', ...props }, ref) => {
+    const inputId = useId()
+
+    return (
+      <div className="relative">
+        <input
+          ref={ref}
+          type={type}
+          id={inputId}
+          placeholder=" "
+          className={cn(
+            'peer flex h-14 w-full rounded-lg border border-gray-500 bg-white px-3 pt-4 transition-all outline-none placeholder-shown:pt-0 focus-within:border-gray-800',
+            error && 'border-red-900 focus-within:border-red-900',
+            className,
+          )}
+          {...props}
+        />
+
+        <label
+          htmlFor={inputId}
+          className="pointer-events-none absolute top-2 left-3 text-xs text-gray-700 transition-all peer-placeholder-shown:top-7 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base"
+        >
+          {placeholder}
+        </label>
+
+        {error ? (
+          <span className="mt-2 inline-flex items-center gap-2 text-xs text-red-900">
+            <CrossCircledIcon />
+            {error}
+          </span>
+        ) : null}
+      </div>
+    )
+  },
+)
+
+Input.displayName = 'Input'
