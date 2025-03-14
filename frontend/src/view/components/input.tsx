@@ -1,4 +1,4 @@
-import { CrossCircledIcon } from '@radix-ui/react-icons'
+import { XCircle } from 'lucide-react'
 import { ComponentProps, forwardRef, useId } from 'react'
 
 import { cn } from '../../app/utils/cn'
@@ -34,10 +34,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         </label>
 
         {error ? (
-          <span className="mt-2 inline-flex items-center gap-2 text-xs text-red-900">
-            <CrossCircledIcon />
-            {error}
-          </span>
+          <p className="mt-2 flex items-center gap-2 text-xs text-red-900">
+            <XCircle className="size-3" />
+
+            <span>{error}</span>
+          </p>
         ) : null}
       </div>
     )

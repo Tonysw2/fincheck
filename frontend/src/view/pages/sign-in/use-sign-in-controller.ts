@@ -1,36 +1,36 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router'
 
-import { httpClient } from '../../../app/services/http-client'
-
-const signInSchema = z.object({
-  email: z.string().email({ message: 'Informe um email válido.' }),
-  password: z
-    .string()
-    .min(8, { message: 'A senha deve conter pelo menos 8 dígitos.' }),
-})
-
-type SignInSchema = z.infer<typeof signInSchema>
+import { useAuthContext } from '../../../app/hooks/use-auth'
+import { useSignInHookForm } from '../../../app/hooks/use-sign-in-hook-form'
+import { useSignInMutation } from '../../../app/hooks/use-sign-in-mutation'
 
 export function useSignInController() {
-  const {
-    formState: { errors: formErrors },
-    register,
-    handleSubmit: hookFormHandleSubmit,
-  } = useForm<SignInSchema>({
-    resolver: zodResolver(signInSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  })
+  const navigate = useNavigate()
+
+  const { formErrors, register, hookFormHandleSubmit } = useSignInHookForm()
+
+  const { isPending, signInFn } = useSignInMutation()
+
+  const { signIn } = useAuthContext()
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
-    await httpClient.post('/auth/sign-in', data)
+    try {
+      const { accessToken } = await signInFn({
+        email: data.email,
+        password: data.password,
+      })
+
+      signIn(accessToken)
+
+      navigate('/dashboard')
+    } catch {
+      toast.error('Erro ao fazer login.')
+    }
   })
 
   return {
+    isPending,
     formErrors,
     register,
     handleSubmit,

@@ -5,7 +5,8 @@ import { Input } from '../../components/input'
 import { useSignUpController } from './use-sign-up-controller'
 
 export function SignUp() {
-  const { formErrors, register, handleSubmit } = useSignUpController()
+  const { isPending, formErrors, register, handleSubmit } =
+    useSignUpController()
 
   return (
     <div className="space-y-12">
@@ -45,7 +46,7 @@ export function SignUp() {
           />
         </div>
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" isLoading={isPending}>
           Entrar
         </Button>
       </form>
