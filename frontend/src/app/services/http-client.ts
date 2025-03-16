@@ -8,7 +8,7 @@ export const httpClient = axios.create({
 })
 
 httpClient.interceptors.request.use(async (config) => {
-  await sleep(3000)
+  await sleep()
 
   const storedAccessToken = localStorage.getItem(localStorageKeys.ACCESS_TOKEN)
 

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router'
+import { createBrowserRouter, Navigate } from 'react-router'
 
 import { AuthLayout } from '../view/layouts/auth-layout'
 import { Dashboard } from '../view/pages/dashboard'
@@ -11,6 +11,10 @@ export const router = createBrowserRouter([
     path: '/',
     element: <AuthGuard isPrivate />,
     children: [
+      {
+        path: '/',
+        element: <Navigate to="/dashboard" />,
+      },
       {
         path: '/dashboard',
         element: <Dashboard />,
