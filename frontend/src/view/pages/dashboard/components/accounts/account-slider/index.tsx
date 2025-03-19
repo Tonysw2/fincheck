@@ -1,9 +1,13 @@
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+import { ChevronLeftIcon, ChevronRightIcon, Plus } from 'lucide-react'
 
 import { AccountCard } from '../account-card'
 import { useAccountSliderController } from './use-account-slider-controller'
 
-export function AccountSlider() {
+interface AccountSliderProps {
+  accounts: any[]
+}
+
+export function AccountSlider({ accounts }: AccountSliderProps) {
   const {
     canScrollPrev,
     canScrollNext,
@@ -12,36 +16,53 @@ export function AccountSlider() {
     handleGoNextSlide,
   } = useAccountSliderController()
 
-  return (
-    <div className="embla flex grow flex-col justify-end gap-4">
-      <div className="flex items-center justify-between">
-        <strong className="text-lg font-bold tracking-tight text-white">
-          Minhas contas
-        </strong>
+  let navigationButtons, content
 
-        <div>
-          <button
-            type="button"
-            onClick={handleGoPrevSlide}
-            disabled={!canScrollPrev}
-            className="cursor-pointer rounded-full py-3 pr-3.5 pl-2.5 transition-colors hover:not-disabled:bg-black/10 disabled:opacity-40"
-          >
-            <ChevronLeftIcon className="size-6 text-white" />
-          </button>
+  if (accounts.length === 0) {
+    navigationButtons = null
 
-          <button
-            type="button"
-            onClick={handleGoNextSlide}
-            disabled={!canScrollNext}
-            className="cursor-pointer rounded-full py-3 pr-2.5 pl-3.5 transition-colors hover:not-disabled:bg-black/10 disabled:opacity-40"
-          >
-            <ChevronRightIcon className="size-6 text-white" />
-          </button>
+    content = (
+      <button
+        type="button"
+        className="flex h-51 cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-teal-600 p-4 text-white"
+      >
+        <div className="flex size-10 items-center justify-center rounded-full border-2 border-dashed border-white">
+          <Plus className="size-6" />
         </div>
-      </div>
 
-      <div className="embla" ref={emblaRef}>
-        <div className="embla__container">
+        <span className="inline-flex w-32 text-center font-medium tracking-tight">
+          Cadastre uma nova conta
+        </span>
+      </button>
+    )
+  }
+
+  if (accounts.length > 0) {
+    navigationButtons = (
+      <div>
+        <button
+          type="button"
+          disabled={!canScrollPrev}
+          onClick={handleGoPrevSlide}
+          className="cursor-pointer rounded-full py-3 pr-3.5 pl-2.5 transition-colors hover:not-disabled:bg-black/10 disabled:opacity-40"
+        >
+          <ChevronLeftIcon className="size-6 text-white" />
+        </button>
+
+        <button
+          type="button"
+          disabled={!canScrollNext}
+          onClick={handleGoNextSlide}
+          className="cursor-pointer rounded-full py-3 pr-2.5 pl-3.5 transition-colors hover:not-disabled:bg-black/10 disabled:opacity-40"
+        >
+          <ChevronRightIcon className="size-6 text-white" />
+        </button>
+      </div>
+    )
+
+    content = (
+      <div className="embla overflow-hidden" ref={emblaRef}>
+        <div className="embla__container @container flex space-x-4 pr-8 @md:pr-4">
           {Array.from({ length: 10 }, (_, index) => (
             <AccountCard
               key={index.toString()}
@@ -53,6 +74,20 @@ export function AccountSlider() {
           ))}
         </div>
       </div>
+    )
+  }
+
+  return (
+    <div className="embla flex grow flex-col justify-end gap-4">
+      <div className="flex items-center justify-between">
+        <strong className="text-lg font-bold tracking-tight text-white">
+          Minhas contas
+        </strong>
+
+        {navigationButtons}
+      </div>
+
+      {content}
     </div>
   )
 }

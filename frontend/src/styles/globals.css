@@ -157,15 +157,3 @@
   --color-orange-800: #e8590c;
   --color-orange-900: #d9480f;
 }
-
-.embla {
-  @apply @container overflow-hidden;
-}
-
-.embla__container {
-  @apply flex space-x-4 pr-8 @md:pr-4;
-}
-
-.embla__slide {
-  @apply shrink-0 grow-0 basis-[calc(100%-var(--spacing)*4)] @md:basis-[calc(50%-var(--spacing)*4)]; 
-}
