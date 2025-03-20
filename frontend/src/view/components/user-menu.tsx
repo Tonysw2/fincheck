@@ -17,7 +17,7 @@ export function UserMenu() {
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Content align="end" className="w-32">
-        <DropdownMenu.Item className="gap-2" onClick={signOut}>
+        <DropdownMenu.Item className="justify-between" onClick={signOut}>
           Sair <LogOut className="size-4" />
         </DropdownMenu.Item>
       </DropdownMenu.Content>

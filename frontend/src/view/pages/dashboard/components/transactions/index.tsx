@@ -1,12 +1,12 @@
-import { ChevronDown, Loader2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 
 import { cn } from '../../../../../app/utils/cn'
 import { formatCurrency } from '../../../../../app/utils/format-currency'
 import emptyStateImage from '../../../../../assets/empty-state.svg'
 import { CategoryIcon } from '../../../../components/icons/categories/CategoryIcon'
 import { FilterIcon } from '../../../../components/icons/FilterIcon'
-import { TransactionsIcon } from '../../../../components/icons/TransactionsIcon'
 import { TransactionsMonthsSlider } from './transactions-months-slider'
+import { TransactionsTypeDropdown } from './transactions-type-dropdown'
 import { useTransactionsController } from './use-transactions-controller'
 
 export function Transactions() {
@@ -27,11 +27,7 @@ export function Transactions() {
         <>
           <header className="flex flex-col gap-6">
             <div className="flex items-center justify-between">
-              <button className="flex items-center gap-2">
-                <TransactionsIcon />
-                <span className="text-sm">Transações</span>
-                <ChevronDown className="stroke-2 text-gray-900" />
-              </button>
+              <TransactionsTypeDropdown />
 
               <button>
                 <FilterIcon />

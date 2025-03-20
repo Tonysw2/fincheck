@@ -14,7 +14,7 @@ export function App() {
       </AuthProvider>
 
       <Toaster />
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
     </TanstackQueryProvider>
   )
 }

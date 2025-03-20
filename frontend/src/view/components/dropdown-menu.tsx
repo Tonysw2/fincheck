@@ -25,8 +25,11 @@ export function DropdownMenuContent({
   return (
     <RadixDropdownMenu.Portal>
       <RadixDropdownMenu.Content
+        sideOffset={4}
         className={cn(
-          'data-[side=bottom]:animate-slide-up-and-fade rounded-2xl bg-white p-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)]',
+          'rounded-2xl bg-white p-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)]',
+          'data-[side=top]:animate-slide-down-and-fade',
+          'data-[side=bottom]:animate-slide-up-and-fade',
           className,
         )}
         {...props}
@@ -42,7 +45,7 @@ export function DropdownMenuItem({
   return (
     <RadixDropdownMenu.Item
       className={cn(
-        'flex min-h-12 cursor-pointer items-center justify-between rounded-lg bg-white p-2 text-sm text-gray-800 transition-colors outline-none data-[highlighted]:bg-gray-100',
+        'flex min-h-12 cursor-pointer items-center gap-2 rounded-lg bg-white p-2 text-sm text-gray-800 transition-colors outline-none data-[highlighted]:bg-gray-100',
         className,
       )}
       {...props}
