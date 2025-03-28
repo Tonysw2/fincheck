@@ -10,7 +10,10 @@ import { localStorageKeys } from '../../../../app/config/local-storage-keys'
 
 interface DashboardContextValue {
   areValuesVisible: boolean
+  isNewAccountModalOpen: boolean
   toggleValuesVisibility: () => void
+  openNewAccountModal: () => void
+  closeNewAccountModal: () => void
 }
 
 const DashboardContext = createContext<DashboardContextValue | null>(null)
@@ -31,9 +34,18 @@ export function DashboardContextProvider({
       return false
     }
   })
+  const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState(true)
 
   const toggleValuesVisibility = useCallback(() => {
     setAreValuesVisible((state) => !state)
+  }, [])
+
+  const openNewAccountModal = useCallback(() => {
+    setIsNewAccountModalOpen(true)
+  }, [])
+
+  const closeNewAccountModal = useCallback(() => {
+    setIsNewAccountModalOpen(false)
   }, [])
 
   useEffect(() => {
@@ -45,7 +57,13 @@ export function DashboardContextProvider({
 
   return (
     <DashboardContext.Provider
-      value={{ areValuesVisible, toggleValuesVisibility }}
+      value={{
+        areValuesVisible,
+        isNewAccountModalOpen,
+        toggleValuesVisibility,
+        openNewAccountModal,
+        closeNewAccountModal,
+      }}
     >
       {children}
     </DashboardContext.Provider>

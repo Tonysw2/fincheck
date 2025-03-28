@@ -1,10 +1,10 @@
 import { Logo } from '../../components/logo'
-import { Modal } from '../../components/modal'
 import { UserMenu } from '../../components/user-menu'
 import { Accounts } from './components/accounts'
 import { DashboardContextProvider } from './components/dashboard-context'
 import { Fab } from './components/fab'
 import { Transactions } from './components/transactions'
+import { NewAccountModal } from './modals/NewAccountModal'
 
 export function Dashboard() {
   return (
@@ -28,9 +28,7 @@ export function Dashboard() {
 
         <Fab />
 
-        <Modal open={false} title="Title">
-          content
-        </Modal>
+        <NewAccountModal />
       </div>
     </DashboardContextProvider>
   )

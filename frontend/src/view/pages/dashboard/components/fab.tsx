@@ -3,8 +3,11 @@ import { Plus } from 'lucide-react'
 import { DropdownMenu } from '../../../components/dropdown-menu'
 import { BankAccountIcon } from '../../../components/icons/BankAccountIcon'
 import { CategoryIcon } from '../../../components/icons/categories/CategoryIcon'
+import { useDashboard } from './dashboard-context'
 
 export function Fab() {
+  const { openNewAccountModal } = useDashboard()
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
@@ -31,7 +34,7 @@ export function Fab() {
           Nova Receita
         </DropdownMenu.Item>
 
-        <DropdownMenu.Item>
+        <DropdownMenu.Item onClick={openNewAccountModal}>
           <BankAccountIcon />
           Nova Conta
         </DropdownMenu.Item>

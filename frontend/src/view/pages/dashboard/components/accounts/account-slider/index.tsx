@@ -1,5 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon, Plus } from 'lucide-react'
 
+import { useDashboard } from '../../dashboard-context'
 import { AccountCard } from '../account-card'
 import { useAccountSliderController } from './use-account-slider-controller'
 
@@ -16,6 +17,8 @@ export function AccountSlider({ accounts }: AccountSliderProps) {
     handleGoNextSlide,
   } = useAccountSliderController()
 
+  const { openNewAccountModal } = useDashboard()
+
   let navigationButtons, content
 
   if (accounts.length === 0) {
@@ -24,6 +27,7 @@ export function AccountSlider({ accounts }: AccountSliderProps) {
     content = (
       <button
         type="button"
+        onClick={openNewAccountModal}
         className="flex h-51 cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-teal-600 p-4 text-white"
       >
         <div className="flex size-10 items-center justify-center rounded-full border-2 border-dashed border-white">
