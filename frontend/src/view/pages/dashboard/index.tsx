@@ -1,4 +1,5 @@
 import { Logo } from '../../components/logo'
+import { Modal } from '../../components/modal'
 import { UserMenu } from '../../components/user-menu'
 import { Accounts } from './components/accounts'
 import { DashboardContextProvider } from './components/dashboard-context'
@@ -26,6 +27,10 @@ export function Dashboard() {
         </main>
 
         <Fab />
+
+        <Modal open={false} title="Title">
+          content
+        </Modal>
       </div>
     </DashboardContextProvider>
   )
