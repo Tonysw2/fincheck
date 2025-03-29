@@ -1,17 +1,23 @@
-import * as SelectPrimitive from '@radix-ui/react-select'
-import { ChevronDown, ChevronUp, XCircle } from 'lucide-react'
-import { useState } from 'react'
+import * as SelectPrimitive from "@radix-ui/react-select";
+import { ChevronDown, ChevronUp, XCircle } from "lucide-react";
+import { useState } from "react";
 
-import { cn } from '../../app/utils/cn'
+import { cn } from "../../app/utils/cn";
 
 interface SelectProps {
-  className?: string
-  error?: string
-  options: { label: string; value: string }[]
+  error?: string;
+  className?: string;
+  placeholder?: string;
+  options: { label: string; value: string }[];
 }
 
-export function Select({ className, error, options }: SelectProps) {
-  const [value, setValue] = useState('')
+export function Select({
+  error,
+  className,
+  placeholder,
+  options,
+}: SelectProps) {
+  const [value, setValue] = useState("");
 
   return (
     <div>
@@ -19,18 +25,18 @@ export function Select({ className, error, options }: SelectProps) {
         <label
           htmlFor=""
           className={cn(
-            'pointer-events-none absolute top-1/2 left-3 z-10 -translate-y-1/2 text-gray-700 transition-all',
-            value && 'top-2 translate-y-0 text-xs',
+            "pointer-events-none absolute top-1/2 left-3 z-10 -translate-y-1/2 text-gray-700 transition-all",
+            value && "top-2 translate-y-0 text-xs",
           )}
         >
-          Selecione uma fruta
+          {placeholder}
         </label>
 
         <SelectPrimitive.Root value={value} onValueChange={setValue}>
           <SelectPrimitive.Trigger
             className={cn(
-              'relative h-14 w-full rounded-lg border border-gray-500 bg-white px-3 pt-4 text-left transition-all outline-none focus-within:border-gray-800 [&>span]:line-clamp-1',
-              error && 'border-red-900 focus-within:border-red-900',
+              "relative h-14 w-full rounded-lg border border-gray-500 bg-white px-3 pt-4 text-left transition-all outline-none focus-within:border-gray-800 [&>span]:line-clamp-1",
+              error && "border-red-900 focus-within:border-red-900",
               className,
             )}
           >
@@ -42,20 +48,20 @@ export function Select({ className, error, options }: SelectProps) {
           </SelectPrimitive.Trigger>
 
           <SelectPrimitive.Portal>
-            <SelectPrimitive.Content className="z-[99] max-h-[var(--radix-select-content-available-height)] w-[var(--radix-select-trigger-width)] overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl">
+            <SelectPrimitive.Content className="z-[99] max-h-[var(--radix-select-content-available-height)] w-[var(--radix-select-trigger-width)] overflow-hidden rounded-2xl border border-gray-100 bg-white p-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)]">
               <SelectPrimitive.ScrollUpButton className="flex h-6 cursor-default items-center justify-center bg-white text-gray-800">
                 <ChevronUp />
               </SelectPrimitive.ScrollUpButton>
 
-              <SelectPrimitive.Viewport className="p-2">
+              <SelectPrimitive.Viewport>
                 {options.map((opt) => (
                   <SelectPrimitive.Item
                     key={opt.value}
                     value={opt.value}
-                    className="rounded-lg p-2 text-sm text-gray-800 transition-colors outline-none data-[highlighted]:bg-gray-100 data-[state=checked]:font-bold"
+                    className="rounded-lg p-2 text-sm text-gray-800 transition-colors outline-none select-none data-[highlighted]:bg-gray-100 data-[state=checked]:font-bold"
                   >
                     <SelectPrimitive.ItemText>
-                      {opt.value}
+                      {opt.label}
                     </SelectPrimitive.ItemText>
                   </SelectPrimitive.Item>
                 ))}
@@ -77,5 +83,5 @@ export function Select({ className, error, options }: SelectProps) {
         </p>
       ) : null}
     </div>
-  )
+  );
 }

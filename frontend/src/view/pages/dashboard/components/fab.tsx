@@ -1,12 +1,12 @@
-import { Plus } from 'lucide-react'
+import { Plus } from "lucide-react";
 
-import { DropdownMenu } from '../../../components/dropdown-menu'
-import { BankAccountIcon } from '../../../components/icons/BankAccountIcon'
-import { CategoryIcon } from '../../../components/icons/categories/CategoryIcon'
-import { useDashboard } from './dashboard-context'
+import { DropdownMenu } from "../../../components/dropdown-menu";
+import { BankAccountIcon } from "../../../components/icons/BankAccountIcon";
+import { CategoryIcon } from "../../../components/icons/categories/CategoryIcon";
+import { useDashboard } from "./dashboard-context";
 
 export function Fab() {
-  const { openNewAccountModal } = useDashboard()
+  const { openNewAccountModal, openNewTransactionModal } = useDashboard();
 
   return (
     <DropdownMenu.Root>
@@ -24,21 +24,21 @@ export function Fab() {
         align="end"
         className="animate-slide-down-and-fade"
       >
-        <DropdownMenu.Item>
+        <DropdownMenu.Item onSelect={() => openNewTransactionModal("INCOME")}>
           <CategoryIcon type="income" />
-          Nova Despesa
-        </DropdownMenu.Item>
-
-        <DropdownMenu.Item>
-          <CategoryIcon type="expense" />
           Nova Receita
         </DropdownMenu.Item>
 
-        <DropdownMenu.Item onClick={openNewAccountModal}>
+        <DropdownMenu.Item onSelect={() => openNewTransactionModal("EXPENSE")}>
+          <CategoryIcon type="expense" />
+          Nova Despesa
+        </DropdownMenu.Item>
+
+        <DropdownMenu.Item onSelect={openNewAccountModal}>
           <BankAccountIcon />
           Nova Conta
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
-  )
+  );
 }
