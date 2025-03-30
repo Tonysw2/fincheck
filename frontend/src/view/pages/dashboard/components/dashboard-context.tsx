@@ -7,6 +7,7 @@ import {
 } from 'react'
 
 import { localStorageKeys } from '../../../../app/config/local-storage-keys'
+import { BankAccount } from '../../../../app/entities/bank-account'
 
 interface DashboardContextValue {
   areValuesVisible: boolean
@@ -18,9 +19,15 @@ interface DashboardContextValue {
   isNewTransactionModalOpen: boolean
   openNewTransactionModal: (type: 'INCOME' | 'EXPENSE') => void
   closeNewTransactionModal: () => void
+  isUpdateBankAccountModalOpen: boolean
+  openUpdateBankAccountModal: (account: BankAccount) => void
+  closeUpdateBankAccountModal: () => void
+  bankAccountBeingUpdated: null | BankAccount
 }
 
-const DashboardContext = createContext<DashboardContextValue | null>(null)
+export const DashboardContext = createContext<DashboardContextValue | null>(
+  null,
+)
 
 export function DashboardContextProvider({
   children,
@@ -44,6 +51,10 @@ export function DashboardContextProvider({
   const [newTransactionType, setNewTransactionType] = useState<
     'INCOME' | 'EXPENSE' | null
   >(null)
+  const [isUpdateBankAccountModalOpen, setIsUpdateBankAccountModalOpen] =
+    useState(false)
+  const [bankAccountBeingUpdated, setBankAccountBeingUpdated] =
+    useState<null | BankAccount>(null)
 
   const toggleValuesVisibility = useCallback(() => {
     setAreValuesVisible((state) => !state)
@@ -67,6 +78,16 @@ export function DashboardContextProvider({
     setIsNewTransactionModalOpen(false)
   }, [])
 
+  const openUpdateBankAccountModal = useCallback((bankAccount: BankAccount) => {
+    setBankAccountBeingUpdated(bankAccount)
+    setIsUpdateBankAccountModalOpen(true)
+  }, [])
+
+  const closeUpdateBankAccountModal = useCallback(() => {
+    setBankAccountBeingUpdated(null)
+    setIsUpdateBankAccountModalOpen(false)
+  }, [])
+
   useEffect(() => {
     localStorage.setItem(
       localStorageKeys.ARE_VALUES_VISIBLE,
@@ -86,6 +107,10 @@ export function DashboardContextProvider({
         isNewTransactionModalOpen,
         openNewTransactionModal,
         closeNewTransactionModal,
+        isUpdateBankAccountModalOpen,
+        openUpdateBankAccountModal,
+        closeUpdateBankAccountModal,
+        bankAccountBeingUpdated,
       }}
     >
       {children}

@@ -69,13 +69,7 @@ export function AccountSlider({ accounts }: AccountSliderProps) {
       <div className="embla overflow-hidden" ref={emblaRef}>
         <div className="embla__container @container flex space-x-4 pr-8 @md:pr-4">
           {accounts.map((account) => (
-            <AccountCard
-              key={account.id}
-              type={account.type}
-              color={account.color}
-              balance={account.currentBalance}
-              name={account.name}
-            />
+            <AccountCard key={account.id} data={account} />
           ))}
         </div>
       </div>
