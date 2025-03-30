@@ -1,14 +1,16 @@
-import * as SelectPrimitive from "@radix-ui/react-select";
-import { ChevronDown, ChevronUp, XCircle } from "lucide-react";
-import { useState } from "react";
+import * as SelectPrimitive from '@radix-ui/react-select'
+import { ChevronDown, ChevronUp, XCircle } from 'lucide-react'
+import { useState } from 'react'
 
-import { cn } from "../../app/utils/cn";
+import { cn } from '../../app/utils/cn'
 
 interface SelectProps {
-  error?: string;
-  className?: string;
-  placeholder?: string;
-  options: { label: string; value: string }[];
+  error?: string
+  className?: string
+  placeholder?: string
+  options: { label: string; value: string }[]
+  value: string
+  onChange: (value: string) => void
 }
 
 export function Select({
@@ -16,27 +18,36 @@ export function Select({
   className,
   placeholder,
   options,
+  value,
+  onChange,
 }: SelectProps) {
-  const [value, setValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState(value)
+
+  function handleChange(value: string) {
+    setSelectedValue(value)
+    onChange(value)
+  }
 
   return (
     <div>
       <div className="relative">
         <label
-          htmlFor=""
           className={cn(
-            "pointer-events-none absolute top-1/2 left-3 z-10 -translate-y-1/2 text-gray-700 transition-all",
-            value && "top-2 translate-y-0 text-xs",
+            'pointer-events-none absolute top-1/2 left-3 z-10 -translate-y-1/2 text-gray-700 transition-all',
+            value && 'top-2 translate-y-0 text-xs',
           )}
         >
           {placeholder}
         </label>
 
-        <SelectPrimitive.Root value={value} onValueChange={setValue}>
+        <SelectPrimitive.Root
+          value={selectedValue}
+          onValueChange={handleChange}
+        >
           <SelectPrimitive.Trigger
             className={cn(
-              "relative h-14 w-full rounded-lg border border-gray-500 bg-white px-3 pt-4 text-left transition-all outline-none focus-within:border-gray-800 [&>span]:line-clamp-1",
-              error && "border-red-900 focus-within:border-red-900",
+              'relative h-14 w-full rounded-lg border border-gray-500 bg-white px-3 pt-4 text-left transition-all outline-none focus-within:border-gray-800 [&>span]:line-clamp-1',
+              error && 'border-red-900 focus-within:border-red-900',
               className,
             )}
           >
@@ -83,5 +94,5 @@ export function Select({
         </p>
       ) : null}
     </div>
-  );
+  )
 }

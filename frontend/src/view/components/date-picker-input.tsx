@@ -1,17 +1,18 @@
-import { XCircle } from "lucide-react";
-import { useState } from "react";
-import { cn } from "../../app/utils/cn";
-import { formatDate } from "../../app/utils/format-date";
-import { PopoverContent, PopoverRoot, PopoverTrigger } from "./popover";
-import { DatePicker } from "./date-picker";
+import { XCircle } from 'lucide-react'
+import { useState } from 'react'
+
+import { cn } from '../../app/utils/cn'
+import { formatDate } from '../../app/utils/format-date'
+import { DatePicker } from './date-picker'
+import { PopoverContent, PopoverRoot, PopoverTrigger } from './popover'
 
 interface DatePickerInputProps {
-  error?: string;
-  className?: string;
+  error?: string
+  className?: string
 }
 
 export function DatePickerInput({ error, className }: DatePickerInputProps) {
-  const [selectedDate, setSelectedChange] = useState(new Date());
+  const [selectedDate, setSelectedChange] = useState(new Date())
 
   return (
     <div>
@@ -20,8 +21,8 @@ export function DatePickerInput({ error, className }: DatePickerInputProps) {
           <button
             type="button"
             className={cn(
-              "relative h-14 w-full rounded-lg border border-gray-500 bg-white px-3 pt-4 text-left text-gray-700 transition-all outline-none focus-within:border-gray-700 [&>span]:line-clamp-1",
-              error && "border-red-900 focus-within:border-red-900",
+              'relative h-14 w-full rounded-lg border border-gray-500 bg-white px-3 pt-4 text-left text-gray-700 transition-all outline-none focus-within:border-gray-700 [&>span]:line-clamp-1',
+              error && 'border-red-900 focus-within:border-red-900',
               className,
             )}
           >
@@ -46,5 +47,5 @@ export function DatePickerInput({ error, className }: DatePickerInputProps) {
         </p>
       ) : null}
     </div>
-  );
+  )
 }
