@@ -1,17 +1,23 @@
 import { Loader2 } from 'lucide-react'
 
 import { cn } from '../../../../../app/utils/cn'
+import { formatCurrency } from '../../../../../app/utils/format-currency'
 import { EyeIcon } from '../../../../components/icons/EyeIcon'
 import { AccountSlider } from './account-slider'
 import { useAccountsController } from './use-accounts-controller'
 
 export function Accounts() {
-  const { accounts, isLoading, areValuesVisible, toggleValuesVisibility } =
-    useAccountsController()
+  const {
+    bankAccounts,
+    currentBalance,
+    areValuesVisible,
+    isBankAccountsPending,
+    toggleValuesVisibility,
+  } = useAccountsController()
 
   let content
 
-  if (isLoading) {
+  if (isBankAccountsPending) {
     content = (
       <div className="grid h-full place-content-center">
         <Loader2 className="size-10 animate-spin text-white" />
@@ -19,7 +25,7 @@ export function Accounts() {
     )
   }
 
-  if (!isLoading) {
+  if (!isBankAccountsPending) {
     content = (
       <>
         <div className="flex flex-col">
@@ -32,7 +38,7 @@ export function Accounts() {
                 !areValuesVisible && 'blur-md',
               )}
             >
-              R$ 100,00
+              {formatCurrency(currentBalance)}
             </strong>
 
             <button
@@ -45,7 +51,7 @@ export function Accounts() {
           </div>
         </div>
 
-        <AccountSlider accounts={accounts} />
+        <AccountSlider accounts={bankAccounts} />
       </>
     )
   }

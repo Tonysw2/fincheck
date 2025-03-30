@@ -1,11 +1,12 @@
 import { ChevronLeftIcon, ChevronRightIcon, Plus } from 'lucide-react'
 
+import { GetAllBankAccountsResponse } from '../../../../../../app/services/bank-account-service/get-all'
 import { useDashboard } from '../../dashboard-context'
 import { AccountCard } from '../account-card'
 import { useAccountSliderController } from './use-account-slider-controller'
 
 interface AccountSliderProps {
-  accounts: any[]
+  accounts: GetAllBankAccountsResponse
 }
 
 export function AccountSlider({ accounts }: AccountSliderProps) {
@@ -67,13 +68,13 @@ export function AccountSlider({ accounts }: AccountSliderProps) {
     content = (
       <div className="embla overflow-hidden" ref={emblaRef}>
         <div className="embla__container @container flex space-x-4 pr-8 @md:pr-4">
-          {Array.from({ length: 10 }, (_, index) => (
+          {accounts.map((account) => (
             <AccountCard
-              key={index.toString()}
-              type="CHECKING"
-              color="purple"
-              balance={5123}
-              name="Nubank"
+              key={account.id}
+              type={account.type}
+              color={account.color}
+              balance={account.currentBalance}
+              name={account.name}
             />
           ))}
         </div>
