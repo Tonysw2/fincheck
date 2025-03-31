@@ -7,9 +7,9 @@ import {
 } from './components/dashboard-context'
 import { Fab } from './components/fab'
 import { Transactions } from './components/transactions'
-import { NewAccountModal } from './modals/NewAccountModal'
-import { NewTransactionModal } from './modals/NewTransactionModal'
-import { UpdateAccountModal } from './modals/UpdateAccountModal'
+import { NewAccountModal } from './modals/new-account-modal'
+import { NewTransactionModal } from './modals/new-transaction-modal'
+import { UpdateAccountModal } from './modals/update-account-modal'
 
 export function Dashboard() {
   return (

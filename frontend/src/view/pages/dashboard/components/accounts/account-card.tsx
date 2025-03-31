@@ -20,7 +20,7 @@ export function AccountCard({ data }: AccountCardProps) {
       role="button"
       style={{ borderColor: color }}
       onClick={() => openUpdateBankAccountModal(data)}
-      className="embla__slide flex h-50 shrink-0 grow-0 basis-[calc(100%-var(--spacing)*4)] cursor-pointer flex-col justify-between rounded-2xl border-b-4 bg-white p-4 @md:basis-[calc(50%-var(--spacing)*4)]"
+      className="embla__slide flex h-50 shrink-0 grow-0 basis-[calc(100%-var(--spacing)*4)] flex-col justify-between rounded-2xl border-b-4 bg-white p-4 @md:basis-[calc(50%-var(--spacing)*4)]"
     >
       <div className="flex flex-col gap-4">
         <BankAccountTypeIcon type={type} />

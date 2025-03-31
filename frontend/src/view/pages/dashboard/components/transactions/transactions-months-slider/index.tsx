@@ -18,7 +18,7 @@ export function TransactionsMonthsSlider() {
       <button
         type="button"
         onClick={handlePrevSlide}
-        className="absolute left-0 z-10 flex size-12 cursor-pointer items-center justify-center bg-linear-to-r from-gray-100 from-30% to-transparent"
+        className="absolute left-0 z-10 flex size-12 items-center justify-center bg-linear-to-r from-gray-100 from-30% to-transparent"
       >
         <ChevronLeft className="mr-1 size-6 text-gray-800" />
       </button>
@@ -26,7 +26,7 @@ export function TransactionsMonthsSlider() {
       <button
         type="button"
         onClick={handleNextSlide}
-        className="absolute right-0 z-10 flex size-12 cursor-pointer items-center justify-center bg-linear-to-l from-gray-100 from-30% to-transparent"
+        className="absolute right-0 z-10 flex size-12 items-center justify-center bg-linear-to-l from-gray-100 from-30% to-transparent"
       >
         <ChevronRight className="ml-1 size-6 text-gray-800" />
       </button>
@@ -45,7 +45,7 @@ export function TransactionsMonthsSlider() {
                 type="button"
                 onClick={() => handleScrollTo(monthIndex)}
                 className={cn(
-                  'flex h-12 w-full cursor-pointer items-center justify-center rounded-full text-sm/snug font-medium tracking-tight text-gray-700',
+                  'flex h-12 w-full items-center justify-center rounded-full text-sm/snug font-medium tracking-tight text-gray-700',
                   selectedMonthIndex === monthIndex && 'bg-white text-gray-800',
                 )}
               >

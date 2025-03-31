@@ -27,7 +27,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
         today: 'rounded-full bg-gray-100 font-bold text-gray-900',
         day: 'group/day text-gray-700',
         day_button:
-          'flex items-center justify-center size-10 rounded-full cursor-pointer text-xl hover:bg-teal-200 group-data-[selected=true]/day:bg-teal-900 group-data-[selected=true]/day:not-hover:text-white group-data-[selected=true]/day:not-hover:font-medium',
+          'flex items-center justify-center size-10 rounded-full  text-xl hover:bg-teal-200 group-data-[selected=true]/day:bg-teal-900 group-data-[selected=true]/day:not-hover:text-white group-data-[selected=true]/day:not-hover:font-medium',
       }}
       formatters={{
         formatCaption: (date, options) => {

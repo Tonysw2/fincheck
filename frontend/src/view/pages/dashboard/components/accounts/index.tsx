@@ -44,7 +44,7 @@ export function Accounts() {
             <button
               type="button"
               onClick={toggleValuesVisibility}
-              className="flex size-8 cursor-pointer items-center justify-center"
+              className="flex size-8 items-center justify-center"
             >
               <EyeIcon open={!areValuesVisible} />
             </button>

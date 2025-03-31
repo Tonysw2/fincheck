@@ -29,7 +29,7 @@ export function AccountSlider({ accounts }: AccountSliderProps) {
       <button
         type="button"
         onClick={openNewAccountModal}
-        className="flex h-51 cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-teal-600 p-4 text-white"
+        className="flex h-51 flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-teal-600 p-4 text-white"
       >
         <div className="flex size-10 items-center justify-center rounded-full border-2 border-dashed border-white">
           <Plus className="size-6" />
@@ -49,7 +49,7 @@ export function AccountSlider({ accounts }: AccountSliderProps) {
           type="button"
           disabled={!canScrollPrev}
           onClick={handleGoPrevSlide}
-          className="cursor-pointer rounded-full py-3 pr-3.5 pl-2.5 transition-colors hover:not-disabled:bg-black/10 disabled:opacity-40"
+          className="rounded-full py-3 pr-3.5 pl-2.5 transition-colors hover:not-disabled:bg-black/10 disabled:opacity-40"
         >
           <ChevronLeftIcon className="size-6 text-white" />
         </button>
@@ -58,7 +58,7 @@ export function AccountSlider({ accounts }: AccountSliderProps) {
           type="button"
           disabled={!canScrollNext}
           onClick={handleGoNextSlide}
-          className="cursor-pointer rounded-full py-3 pr-2.5 pl-3.5 transition-colors hover:not-disabled:bg-black/10 disabled:opacity-40"
+          className="rounded-full py-3 pr-2.5 pl-3.5 transition-colors hover:not-disabled:bg-black/10 disabled:opacity-40"
         >
           <ChevronRightIcon className="size-6 text-white" />
         </button>

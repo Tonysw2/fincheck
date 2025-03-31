@@ -7,16 +7,34 @@ import { Input } from '../../../../components/input'
 import { InputCurrency } from '../../../../components/input-currency'
 import { Modal } from '../../../../components/modal'
 import { Select } from '../../../../components/select'
-import { useUpdateAccountModalController } from './use-edit-account-modal-controller'
+import { ConfirmDeleteModal } from '../confirm-delete-modal'
+import { useUpdateAccountModalController } from './use-update-account-modal-controller'
 
 export function UpdateAccountModal() {
   const {
     form,
+    isDeletingBankAccount,
     isUpdatingBankAccount,
+    isDeleteAccountModalOpen,
     isUpdateBankAccountModalOpen,
     onSubmit,
+    handleDeleteAccount,
+    openDeleteAccountModal,
+    closeDeleteAccountModal,
     closeUpdateBankAccountModal,
   } = useUpdateAccountModalController()
+
+  if (isDeleteAccountModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        onConfirm={handleDeleteAccount}
+        isLoading={isDeletingBankAccount}
+        onClose={closeDeleteAccountModal}
+        title="Tem certeza que deseja excluir esta conta?"
+        description="Ao excluir a conta, também serão excluídos todos os registros de receita e despesas relacionados."
+      />
+    )
+  }
 
   return (
     <Modal
@@ -24,8 +42,8 @@ export function UpdateAccountModal() {
       open={isUpdateBankAccountModalOpen}
       onClose={closeUpdateBankAccountModal}
       rightAction={
-        <button>
-          <TrashIcon className="size-6 text-gray-800" />
+        <button type="button" onClick={openDeleteAccountModal}>
+          <TrashIcon className="size-6 text-red-900" />
         </button>
       }
     >
@@ -102,7 +120,7 @@ export function UpdateAccountModal() {
           disabled={!form.formState.isDirty}
           className="mt-6 w-full"
         >
-          Editar
+          Salvar
         </Button>
       </form>
     </Modal>

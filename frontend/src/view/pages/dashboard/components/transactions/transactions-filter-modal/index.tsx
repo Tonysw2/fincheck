@@ -66,7 +66,7 @@ export function TransactionsFiltersModal({
           <button
             type="button"
             onClick={() => handleChangeYear(-1)}
-            className="flex size-12 cursor-pointer items-center justify-center p-3"
+            className="flex size-12 items-center justify-center p-3"
           >
             <ChevronLeft className="size-6" />
           </button>
@@ -78,7 +78,7 @@ export function TransactionsFiltersModal({
           <button
             type="button"
             onClick={() => handleChangeYear(1)}
-            className="flex size-12 cursor-pointer items-center justify-center p-3"
+            className="flex size-12 items-center justify-center p-3"
           >
             <ChevronRight className="size-6" />
           </button>

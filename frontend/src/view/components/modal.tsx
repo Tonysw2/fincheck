@@ -38,7 +38,7 @@ export function Modal({
           <header className="flex h-12 items-center justify-between">
             <button
               onClick={onClose}
-              className="flex size-12 cursor-pointer items-center justify-center outline-none"
+              className="flex size-12 items-center justify-center outline-none"
             >
               <X className="size-6 text-gray-800" />
             </button>

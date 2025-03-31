@@ -5,6 +5,7 @@ import { cn } from '../../app/utils/cn'
 
 interface ButtonProps extends ComponentProps<'button'> {
   isLoading?: boolean
+  variant?: 'danger' | 'ghost'
 }
 
 export function Button({
@@ -12,6 +13,7 @@ export function Button({
   disabled,
   isLoading,
   className = '',
+  variant,
   ...props
 }: ButtonProps) {
   let content = children
@@ -25,7 +27,10 @@ export function Button({
       {...props}
       disabled={disabled || isLoading}
       className={cn(
-        'inline-flex h-12 cursor-pointer items-center justify-center rounded-2xl bg-teal-900 px-6 font-medium text-white transition-all hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400',
+        'inline-flex h-12 items-center justify-center rounded-2xl bg-teal-900 px-6 font-medium text-white transition-all hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400',
+        variant === 'danger' && 'bg-red-900 hover:bg-red-900/90',
+        variant === 'ghost' &&
+          'border border-gray-700 bg-transparent text-gray-700 hover:bg-gray-700/10',
         className,
       )}
     >
