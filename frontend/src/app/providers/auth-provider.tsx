@@ -30,7 +30,7 @@ export function AuthProvider(props: { children: ReactNode }) {
     return Boolean(storedAccessToken)
   })
 
-  const { isSuccess, isError, isFetching } = useGetMeQuery({ signedIn })
+  const { user, isSuccess, isError, isFetching } = useGetMeQuery({ signedIn })
 
   const signIn = useCallback((accessToken: string) => {
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, accessToken)
@@ -44,10 +44,10 @@ export function AuthProvider(props: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    if (isError) {
+    if (isError || (isSuccess && !user)) {
       signOut()
     }
-  }, [isError])
+  }, [isError, user])
 
   return (
     <AuthContext.Provider

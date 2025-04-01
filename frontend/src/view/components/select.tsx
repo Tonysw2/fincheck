@@ -1,5 +1,5 @@
 import * as SelectPrimitive from '@radix-ui/react-select'
-import { ChevronDown, ChevronUp, XCircle } from 'lucide-react'
+import { ChevronDown, ChevronUp, Loader2, XCircle } from 'lucide-react'
 import { useState } from 'react'
 
 import { cn } from '../../app/utils/cn'
@@ -11,6 +11,7 @@ interface SelectProps {
   options: { label: string; value: string }[]
   value: string
   onChange: (value: string) => void
+  isLoading?: boolean
 }
 
 export function Select({
@@ -20,6 +21,7 @@ export function Select({
   options,
   value,
   onChange,
+  isLoading = false,
 }: SelectProps) {
   const [selectedValue, setSelectedValue] = useState(value)
 
@@ -35,6 +37,7 @@ export function Select({
           className={cn(
             'pointer-events-none absolute top-1/2 left-3 z-10 -translate-y-1/2 text-gray-700 transition-all',
             value && 'top-2 translate-y-0 text-xs',
+            isLoading && 'opacity-50',
           )}
         >
           {placeholder}
@@ -43,18 +46,24 @@ export function Select({
         <SelectPrimitive.Root
           value={selectedValue}
           onValueChange={handleChange}
+          disabled={isLoading}
         >
           <SelectPrimitive.Trigger
             className={cn(
               'relative h-14 w-full rounded-lg border border-gray-500 bg-white px-3 pt-4 text-left transition-all outline-none focus-within:border-gray-800 [&>span]:line-clamp-1',
               error && 'border-red-900 focus-within:border-red-900',
               className,
+              isLoading && 'cursor-not-allowed opacity-50',
             )}
           >
             <SelectPrimitive.Value />
 
             <SelectPrimitive.Icon className="absolute top-1/2 right-3 -translate-y-1/2">
-              <ChevronDown className="size-6 text-gray-800" />
+              {isLoading ? (
+                <Loader2 className="size-6 animate-spin text-gray-800" />
+              ) : (
+                <ChevronDown className="size-6 text-gray-800" />
+              )}
             </SelectPrimitive.Icon>
           </SelectPrimitive.Trigger>
 

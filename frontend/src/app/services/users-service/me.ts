@@ -7,8 +7,10 @@ interface MeParams {
 }
 
 interface MeResponse {
-  name: string
-  email: string
+  user: {
+    name: string
+    email: string
+  }
 }
 
 export async function me(params?: MeParams) {

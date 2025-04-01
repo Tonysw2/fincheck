@@ -7,7 +7,7 @@ type UseGetMeQueryParams = {
 }
 
 export function useGetMeQuery({ signedIn }: UseGetMeQueryParams) {
-  const { isSuccess, isError, isFetching } = useQuery({
+  const { data, isSuccess, isError, isFetching } = useQuery({
     queryKey: ['me'],
     enabled: signedIn,
     staleTime: Infinity,
@@ -15,6 +15,7 @@ export function useGetMeQuery({ signedIn }: UseGetMeQueryParams) {
   })
 
   return {
+    user: data?.user,
     isError,
     isSuccess,
     isFetching,

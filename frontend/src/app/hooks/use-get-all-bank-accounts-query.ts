@@ -5,7 +5,7 @@ import { bankAccountServices } from '../services/bank-account-service'
 export const GET_ALL_BANK_ACCOUNTS_QUERY_KEY = ['bank-accounts']
 
 export function useGetAllBankAccountsQuery() {
-  const { data, isPending } = useQuery({
+  const { data, isPending, isFetching } = useQuery({
     queryKey: GET_ALL_BANK_ACCOUNTS_QUERY_KEY,
     queryFn: ({ signal }) => bankAccountServices.getAll(signal),
   })
@@ -13,5 +13,6 @@ export function useGetAllBankAccountsQuery() {
   return {
     bankAccounts: data ?? [],
     isBankAccountsPending: isPending,
+    isBankAccountsFetching: isFetching,
   }
 }
