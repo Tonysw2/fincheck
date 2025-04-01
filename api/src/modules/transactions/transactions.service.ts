@@ -47,6 +47,7 @@ export class TransactionsService {
     return this.transactionsRepo.create({
       data: {
         bacnkAccountId: bankAccountId,
+        transactionCategoryId: categoryId,
         userId,
         date,
         name,
