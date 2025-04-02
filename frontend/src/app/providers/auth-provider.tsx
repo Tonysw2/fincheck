@@ -9,9 +9,11 @@ import {
 
 import { SplashScreen } from '../../view/components/splash-screen'
 import { localStorageKeys } from '../config/local-storage-keys'
+import { User } from '../entities/user'
 import { useGetMeQuery } from '../hooks/use-get-me-query'
 
 type AuthContextType = {
+  user: User | undefined
   signedIn: boolean
   signOut: () => void
   signIn: (accessToken: string) => void
@@ -52,6 +54,7 @@ export function AuthProvider(props: { children: ReactNode }) {
   return (
     <AuthContext.Provider
       value={{
+        user,
         signedIn: isSuccess && signedIn,
         signIn,
         signOut,

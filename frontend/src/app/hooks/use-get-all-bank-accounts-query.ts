@@ -6,6 +6,7 @@ export const GET_ALL_BANK_ACCOUNTS_QUERY_KEY = ['bank-accounts']
 
 export function useGetAllBankAccountsQuery() {
   const { data, isPending, isFetching } = useQuery({
+    staleTime: Infinity,
     queryKey: GET_ALL_BANK_ACCOUNTS_QUERY_KEY,
     queryFn: ({ signal }) => bankAccountServices.getAll(signal),
   })

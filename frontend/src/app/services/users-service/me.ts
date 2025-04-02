@@ -1,5 +1,6 @@
 import { GenericAbortSignal } from 'axios'
 
+import { User } from '../../entities/user'
 import { httpClient } from '../http-client'
 
 interface MeParams {
@@ -7,10 +8,7 @@ interface MeParams {
 }
 
 interface MeResponse {
-  user: {
-    name: string
-    email: string
-  }
+  user: User
 }
 
 export async function me(params?: MeParams) {

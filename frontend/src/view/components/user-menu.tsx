@@ -4,14 +4,14 @@ import { useAuthContext } from '../../app/hooks/use-auth'
 import { DropdownMenu } from '../components/dropdown-menu'
 
 export function UserMenu() {
-  const { signOut } = useAuthContext()
+  const { user, signOut } = useAuthContext()
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="outline-none">
         <div className="flex size-12 items-center justify-center rounded-full border border-teal-100 bg-teal-50">
           <span className="text-sm font-medium tracking-tight text-teal-900">
-            AR
+            {user?.name.slice(0, 2).toUpperCase()}
           </span>
         </div>
       </DropdownMenu.Trigger>
