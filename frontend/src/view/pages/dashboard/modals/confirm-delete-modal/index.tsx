@@ -18,7 +18,7 @@ export function ConfirmDeleteModal({
   onConfirm,
 }: ConfirmDeleteModalProps) {
   return (
-    <Modal open title="Deletar Conta" onClose={onClose}>
+    <Modal open title="Excluir" onClose={onClose}>
       <div className="mt-10">
         <div className="flex flex-col items-center gap-6">
           <div className="flex size-13 items-center justify-center rounded-full bg-red-100">

@@ -3,16 +3,18 @@ import { Controller } from 'react-hook-form'
 import { Transaction } from '../../../../../app/entities/transaction'
 import { Button } from '../../../../components/button'
 import { DatePickerInput } from '../../../../components/date-picker-input'
+import { TrashIcon } from '../../../../components/icons/TrashIcon'
 import { Input } from '../../../../components/input'
 import { InputCurrency } from '../../../../components/input-currency'
 import { Modal } from '../../../../components/modal'
 import { Select } from '../../../../components/select'
+import { ConfirmDeleteModal } from '../confirm-delete-modal'
 import { useUpdateTransactionModalController } from './use-update-transaction-modal-controller'
 
 interface UpdateTransactionModalProps {
   open: boolean
-  onClose: () => void
   transaction: Transaction
+  onClose: () => void
 }
 
 export function UpdateTransactionModal({
@@ -28,14 +30,39 @@ export function UpdateTransactionModal({
     isCategoriesFetching,
     isBankAccountsFetching,
     isUpdatingTransaction,
+    isDeleteTransactionModalOpen,
+    isDeletingTransaction,
     onSubmit,
+    handleDeleteTransaction,
+    openDeleteTransactionModal,
+    closeDeleteTransactionModal,
   } = useUpdateTransactionModalController({
     transaction,
     onCloseUpdateModal: onClose,
   })
 
+  if (isDeleteTransactionModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        title={`Tem certeza que deseja deletar essa ${isIncome ? 'receita' : 'despesa'}?`}
+        onClose={closeDeleteTransactionModal}
+        onConfirm={handleDeleteTransaction}
+        isLoading={isDeletingTransaction}
+      />
+    )
+  }
+
   return (
-    <Modal open={open} onClose={onClose} title="Editar transação">
+    <Modal
+      open={open}
+      onClose={onClose}
+      title={`Editar ${isIncome ? 'Receita' : 'Despesa'}`}
+      rightAction={
+        <button type="button" onClick={openDeleteTransactionModal}>
+          <TrashIcon className="size-6 text-red-900" />
+        </button>
+      }
+    >
       <form className="mt-10" onSubmit={onSubmit}>
         <div className="flex flex-col gap-2">
           <span className="text-xs text-gray-600">
