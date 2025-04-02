@@ -35,6 +35,22 @@ export class TransactionsService {
           lt: new Date(Date.UTC(filter.year, filter.month + 1)),
         },
       },
+
+      select: {
+        id: true,
+        bacnkAccountId: true,
+        date: true,
+        name: true,
+        type: true,
+        value: true,
+        transactionCategory: {
+          select: {
+            id: true,
+            name: true,
+            icon: true,
+          },
+        },
+      },
     });
   }
 

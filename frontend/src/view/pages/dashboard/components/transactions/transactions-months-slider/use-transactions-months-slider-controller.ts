@@ -2,13 +2,24 @@ import { EmblaCarouselType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import { useCallback, useEffect, useState } from 'react'
 
-export function useTransactionsMonthsSliderController() {
-  const [selectedMonthIndex, setSelectedMonthIndex] = useState(0)
+interface TransactionsMonthsSliderControllerParams {
+  initialMonth?: number
+  onSelect?: (api: EmblaCarouselType) => void
+}
+
+export function useTransactionsMonthsSliderController({
+  initialMonth,
+  onSelect,
+}: TransactionsMonthsSliderControllerParams) {
+  const [selectedMonthIndex, setSelectedMonthIndex] = useState(
+    initialMonth ?? 0,
+  )
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     containScroll: false,
     duration: 20,
+    startIndex: initialMonth ?? 0,
   })
 
   const handleScrollTo = useCallback(
@@ -37,6 +48,7 @@ export function useTransactionsMonthsSliderController() {
 
     const handle = (api: EmblaCarouselType) => {
       setSelectedMonthIndex(api.selectedScrollSnap())
+      onSelect?.(api)
     }
 
     emblaApi.on('select', handle)

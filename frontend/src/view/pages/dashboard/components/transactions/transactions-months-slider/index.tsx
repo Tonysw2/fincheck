@@ -1,23 +1,40 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { MONTHS } from '../../../../../../app/config/months'
+import { TransactionsFilters } from '../../../../../../app/services/transactions-service/get-all'
 import { cn } from '../../../../../../app/utils/cn'
 import { useTransactionsMonthsSliderController } from './use-transactions-months-slider-controller'
 
-export function TransactionsMonthsSlider() {
+interface TransactionsMonthsSliderProps {
+  initialMonth?: number
+  handleFiltersChange?: (newFilters: Partial<TransactionsFilters>) => void
+}
+
+export function TransactionsMonthsSlider({
+  initialMonth,
+  handleFiltersChange,
+}: TransactionsMonthsSliderProps) {
   const {
     selectedMonthIndex,
     emblaRef,
     handleScrollTo,
     handlePrevSlide,
     handleNextSlide,
-  } = useTransactionsMonthsSliderController()
+  } = useTransactionsMonthsSliderController({
+    initialMonth,
+    onSelect: (api) =>
+      handleFiltersChange?.({
+        month: api.selectedScrollSnap(),
+      }),
+  })
 
   return (
     <div className="embla @container relative">
       <button
         type="button"
-        onClick={handlePrevSlide}
+        onClick={() => {
+          handlePrevSlide()
+        }}
         className="absolute left-0 z-10 flex size-12 items-center justify-center bg-linear-to-r from-gray-100 from-30% to-transparent"
       >
         <ChevronLeft className="mr-1 size-6 text-gray-800" />
@@ -25,7 +42,9 @@ export function TransactionsMonthsSlider() {
 
       <button
         type="button"
-        onClick={handleNextSlide}
+        onClick={() => {
+          handleNextSlide()
+        }}
         className="absolute right-0 z-10 flex size-12 items-center justify-center bg-linear-to-l from-gray-100 from-30% to-transparent"
       >
         <ChevronRight className="ml-1 size-6 text-gray-800" />
@@ -43,7 +62,9 @@ export function TransactionsMonthsSlider() {
             >
               <button
                 type="button"
-                onClick={() => handleScrollTo(monthIndex)}
+                onClick={() => {
+                  handleScrollTo(monthIndex)
+                }}
                 className={cn(
                   'flex h-12 w-full items-center justify-center rounded-full text-sm/snug font-medium tracking-tight text-gray-700',
                   selectedMonthIndex === monthIndex && 'bg-white text-gray-800',

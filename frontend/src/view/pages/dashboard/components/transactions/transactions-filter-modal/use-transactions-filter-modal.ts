@@ -1,15 +1,19 @@
 import { useState } from 'react'
 
+import { useGetAllBankAccountsQuery } from '../../../../../../app/hooks/use-get-all-bank-accounts-query'
+
 export function useTransactionsFilterModal() {
   const [selectedBankAccountId, setSelectedBankAccountId] = useState<
-    string | null
-  >(null)
+    string | undefined
+  >(undefined)
 
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
 
+  const { bankAccounts } = useGetAllBankAccountsQuery()
+
   function handleSelectBankAccount(bankAccountId: string) {
     setSelectedBankAccountId((state) =>
-      state === bankAccountId ? null : bankAccountId,
+      state === bankAccountId ? undefined : bankAccountId,
     )
   }
 
@@ -18,6 +22,7 @@ export function useTransactionsFilterModal() {
   }
 
   return {
+    bankAccounts,
     selectedYear,
     selectedBankAccountId,
     handleChangeYear,

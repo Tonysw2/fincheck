@@ -5,31 +5,19 @@ import { Button } from '../../../../../components/button'
 import { Modal } from '../../../../../components/modal'
 import { useTransactionsFilterModal } from './use-transactions-filter-modal'
 
-const mockedBankAccount = [
-  {
-    id: '123',
-    name: 'Nubank',
-  },
-  {
-    id: '456',
-    name: 'XP Investimentos',
-  },
-  {
-    id: '789',
-    name: 'Dinheiro',
-  },
-]
-
 interface TransactionsFilterModalProps {
   open: boolean
   onClose: () => void
+  onApplyFilters: (filters: { bankAccountId?: string; year: number }) => void
 }
 
 export function TransactionsFiltersModal({
   open,
   onClose,
+  onApplyFilters,
 }: TransactionsFilterModalProps) {
   const {
+    bankAccounts,
     selectedYear,
     selectedBankAccountId,
     handleChangeYear,
@@ -44,7 +32,7 @@ export function TransactionsFiltersModal({
         </span>
 
         <div className="space-y-2">
-          {mockedBankAccount.map((account) => (
+          {bankAccounts.map((account) => (
             <button
               key={account.id}
               onClick={() => handleSelectBankAccount(account.id)}
@@ -85,7 +73,16 @@ export function TransactionsFiltersModal({
         </div>
       </div>
 
-      <Button type="button" className="mt-10 w-full">
+      <Button
+        type="button"
+        onClick={() =>
+          onApplyFilters({
+            year: selectedYear,
+            bankAccountId: selectedBankAccountId,
+          })
+        }
+        className="mt-10 w-full"
+      >
         Aplicar filtros
       </Button>
     </Modal>
