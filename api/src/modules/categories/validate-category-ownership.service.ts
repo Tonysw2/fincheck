@@ -5,9 +5,9 @@ import { CategoriesRepository } from 'src/shared/database/repositories/categorie
 export class ValidateCategoryOwnershipService {
   constructor(private readonly categoriesRepo: CategoriesRepository) {}
 
-  async validate(userId: string, categoryId: string) {
+  async validate(userId: string, transactionCategoryId: string) {
     const isOwner = await this.categoriesRepo.findFirst({
-      where: { userId, id: categoryId },
+      where: { userId, id: transactionCategoryId },
       select: { id: true },
     });
 

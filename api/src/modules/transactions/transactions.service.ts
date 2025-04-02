@@ -28,7 +28,7 @@ export class TransactionsService {
     return this.transactionsRepo.findMany({
       where: {
         userId,
-        bacnkAccountId: filter.bankAccountId,
+        bankAccountId: filter.bankAccountId,
         type: filter.type,
         date: {
           gte: new Date(Date.UTC(filter.year, filter.month)),
@@ -38,7 +38,7 @@ export class TransactionsService {
 
       select: {
         id: true,
-        bacnkAccountId: true,
+        bankAccountId: true,
         date: true,
         name: true,
         type: true,
@@ -55,15 +55,19 @@ export class TransactionsService {
   }
 
   async create(userId: string, createTransactionDto: CreateTransactionDto) {
-    const { bankAccountId, categoryId, date, name, type, value } =
+    const { bankAccountId, transactionCategoryId, date, name, type, value } =
       createTransactionDto;
 
-    await this.validateEntitiesOwnership({ userId, bankAccountId, categoryId });
+    await this.validateEntitiesOwnership({
+      userId,
+      bankAccountId,
+      transactionCategoryId,
+    });
 
     return this.transactionsRepo.create({
       data: {
-        bacnkAccountId: bankAccountId,
-        transactionCategoryId: categoryId,
+        bankAccountId,
+        transactionCategoryId,
         userId,
         date,
         name,
@@ -78,13 +82,13 @@ export class TransactionsService {
     transactionId: string,
     updateTransactionDto: UpdateTransactionDto,
   ) {
-    const { date, name, type, value, bankAccountId, categoryId } =
+    const { date, name, type, value, bankAccountId, transactionCategoryId } =
       updateTransactionDto;
 
     await this.validateEntitiesOwnership({
       userId,
       bankAccountId,
-      categoryId,
+      transactionCategoryId,
       transactionId,
     });
 
@@ -95,8 +99,8 @@ export class TransactionsService {
         name,
         type,
         value,
-        bacnkAccountId: bankAccountId,
-        transactionCategoryId: categoryId,
+        bankAccountId,
+        transactionCategoryId,
       },
     });
   }
@@ -114,12 +118,12 @@ export class TransactionsService {
   private async validateEntitiesOwnership({
     userId,
     bankAccountId,
-    categoryId,
+    transactionCategoryId,
     transactionId,
   }: {
     userId: string;
     bankAccountId?: string;
-    categoryId?: string;
+    transactionCategoryId?: string;
     transactionId?: string;
   }) {
     await Promise.all([
@@ -133,8 +137,11 @@ export class TransactionsService {
           bankAccountId,
           userId,
         ),
-      categoryId &&
-        this.validateCategoryOwnershipService.validate(userId, categoryId),
+      transactionCategoryId &&
+        this.validateCategoryOwnershipService.validate(
+          userId,
+          transactionCategoryId,
+        ),
     ]);
   }
 }

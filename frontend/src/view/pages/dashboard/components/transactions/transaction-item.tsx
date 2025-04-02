@@ -7,14 +7,20 @@ import { useDashboard } from '../dashboard-context'
 
 interface TransactionItemProps {
   transaction: Transaction
+  onClick?: () => void
 }
 
-export function TransactionItem({ transaction }: TransactionItemProps) {
+export function TransactionItem({
+  transaction,
+  onClick,
+}: TransactionItemProps) {
   const { areValuesVisible } = useDashboard()
 
   return (
     <div
       key={transaction.id}
+      role="button"
+      onClick={onClick}
       className="flex items-center gap-4 rounded-2xl bg-white p-4"
     >
       <div className="flex grow gap-3">

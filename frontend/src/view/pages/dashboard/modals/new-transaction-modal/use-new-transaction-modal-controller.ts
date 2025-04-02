@@ -37,7 +37,7 @@ export function useNewTransactionModalController() {
       await createTransactionFn({
         data: {
           bankAccountId: data.bankAccountId,
-          categoryId: data.categoryId,
+          transactionCategoryId: data.categoryId,
           name: data.name,
           value: parseFloat(data.value),
           date: data.date.toISOString(),

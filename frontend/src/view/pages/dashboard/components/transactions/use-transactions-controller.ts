@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react'
 
+import { Transaction } from '../../../../../app/entities/transaction'
 import { useGetAllTransactionsQuery } from '../../../../../app/hooks/use-get-all-transactions-query'
 import { TransactionsFilters } from '../../../../../app/services/transactions-service/get-all'
 
 export function useTransactionsController() {
   const [isTransactionsFiltersModalOpen, setIsTransactionsFiltersModalOpen] =
     useState(false)
+  const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] =
+    useState(false)
+  const [transactionBeingEdited, setTransactionBeingEdited] =
+    useState<Transaction | null>(null)
 
   const [transactionsFilters, setTransactionsFilters] =
     useState<TransactionsFilters>({
@@ -52,16 +57,30 @@ export function useTransactionsController() {
     setIsTransactionsFiltersModalOpen(false)
   }
 
+  function handleOpenUpdateTransactionModal(transaction: Transaction) {
+    setTransactionBeingEdited(transaction)
+    setIsUpdateTransactionModalOpen(true)
+  }
+
+  function handleCloseUpdateTransactionModal() {
+    setTransactionBeingEdited(null)
+    setIsUpdateTransactionModalOpen(false)
+  }
+
   return {
     transactions,
     hasTransactions,
     transactionsFilters,
     isTransactionsLoading,
     isTransactionsFetching,
+    transactionBeingEdited,
     isTransactionsFiltersModalOpen,
+    isUpdateTransactionModalOpen,
     handleApplyFilters,
     handleFiltersChange,
     handleOpenTransactionsFiltersModal,
     handleCloseTransactionsFiltersModal,
+    handleOpenUpdateTransactionModal,
+    handleCloseUpdateTransactionModal,
   }
 }

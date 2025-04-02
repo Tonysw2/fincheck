@@ -18,7 +18,7 @@ export class CreateTransactionDto {
   @IsString()
   @IsNotEmpty()
   @IsUUID()
-  categoryId: string;
+  transactionCategoryId: string;
 
   @IsString()
   @IsNotEmpty()

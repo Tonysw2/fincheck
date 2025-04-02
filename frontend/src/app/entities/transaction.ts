@@ -4,6 +4,8 @@ export interface Transaction {
   value: number
   date: string
   type: 'INCOME' | 'EXPENSE'
+  bankAccountId: string
+  transactionCategoryId: string
   transactionCategory: {
     id: string
     name: string

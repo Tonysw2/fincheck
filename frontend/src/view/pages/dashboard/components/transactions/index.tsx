@@ -2,6 +2,7 @@ import { Loader2 } from 'lucide-react'
 
 import emptyStateImage from '../../../../../assets/empty-state.svg'
 import { FilterIcon } from '../../../../components/icons/FilterIcon'
+import { UpdateTransactionModal } from '../../modals/update-transaction-modal'
 import { TransactionItem } from './transaction-item'
 import { TransactionsFiltersModal } from './transactions-filter-modal'
 import { TransactionsMonthsSlider } from './transactions-months-slider'
@@ -15,11 +16,15 @@ export function Transactions() {
     transactionsFilters,
     isTransactionsLoading,
     isTransactionsFetching,
+    transactionBeingEdited,
     isTransactionsFiltersModalOpen,
+    isUpdateTransactionModalOpen,
     handleApplyFilters,
     handleFiltersChange,
     handleOpenTransactionsFiltersModal,
     handleCloseTransactionsFiltersModal,
+    handleOpenUpdateTransactionModal,
+    handleCloseUpdateTransactionModal,
   } = useTransactionsController()
 
   return (
@@ -75,14 +80,27 @@ export function Transactions() {
               </div>
             )}
 
-            {!isTransactionsFetching &&
-              hasTransactions &&
-              transactions.map((transaction) => (
-                <TransactionItem
-                  key={transaction.id}
-                  transaction={transaction}
-                />
-              ))}
+            {!isTransactionsFetching && hasTransactions && (
+              <>
+                {transactionBeingEdited && (
+                  <UpdateTransactionModal
+                    open={isUpdateTransactionModalOpen}
+                    transaction={transactionBeingEdited}
+                    onClose={handleCloseUpdateTransactionModal}
+                  />
+                )}
+
+                {transactions.map((transaction) => (
+                  <TransactionItem
+                    key={transaction.id}
+                    transaction={transaction}
+                    onClick={() =>
+                      handleOpenUpdateTransactionModal(transaction)
+                    }
+                  />
+                ))}
+              </>
+            )}
           </div>
         </>
       )}

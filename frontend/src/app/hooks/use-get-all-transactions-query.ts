@@ -12,7 +12,6 @@ export function useGetAllTransactionsQuery({
   bankAccountId,
 }: TransactionsFilters) {
   const { data, isLoading, isFetching, refetch } = useQuery({
-    enabled: false,
     queryKey: GET_ALL_TRANSACTIONS_QUERY_KEY,
     queryFn: ({ signal }) =>
       transactionsService.getAll({
